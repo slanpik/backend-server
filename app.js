@@ -1,32 +1,31 @@
 // Requires, importacion de librerias de terceros o propias
 var express = require('express');
 var mongoose = require('mongoose');
+var bodyParser = require('body-parser');
 
 
 // Inicializar variables, es importante xq aqui donde usamos las librerias
-
 var app = express();
 
+// Body Parser
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false })); 
+app.use(bodyParser.json())
 
-// Rutas
-
-app.get('/', (request, res, next) => {
-    res.status(200).json({
-        ok: true,
-        mensaje: 'Petición realizada correctamente'
-    });
-});
+// importar rutas
+var appRoutes = require('./routes/app');
+var usuarioRoutes = require('./routes/usuario');
 
 // Conexion a la base de datos
-
 mongoose.connection.openUri('mongodb://localhost:27017/hospitalDB', (err, res) => {
     if( err ) throw err;
 
     console.log('base de datos 27017: \x1b[32m%s\x1b[0m', 'online');
-
-
-
 });
+
+// Rutas
+ app.use('/usuario', usuarioRoutes); 
+ app.use('/', appRoutes); // Se usa un pequeño middleware para hacer funcionar la ruta
 
 // Escuchar peticiones
 // el 3000 es el puerto donde se va a escuchar las peticiones
@@ -36,4 +35,5 @@ app.listen(3000, () => {
 });
 
 // Para correr el servidor de mongoDB
-// "C:\Program Files\MongoDB\Server\4.0\bin\mongod.exe" --dbpath="c:\data\db"
+// "C:\Program Files\MongoDB\Server\4.0\bin\mongod.exe" --dbpath="c:\data\db" 
+
