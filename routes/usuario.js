@@ -18,9 +18,17 @@ var Usuario = require('../models/usuario');
  * Obtener todos los usuarios
  * ==========================
  */
-app.get('/', (request, res, next) => {
+app.get('/', (req, res, next) => {
+
+    /** @var desde es el parametro de donde viene la peticion, en caso que sea nulo lo toma como 0 de manera automatica eso sirve para generar la paginación */
+    var desde = req.query.desde || 0;
+    desde = Number(desde);
 
     Usuario.find({}, 'nombre email img role')
+        // esta funcion sirve para decirle a la petición que se salte los numeros 
+        .skip(desde)
+        // el limit limita los registros en este caso solo 5    
+        .limit(5)
         .exec(
             (err, usuarios) => {
             if (err) {
@@ -31,10 +39,25 @@ app.get('/', (request, res, next) => {
                 });
             }
 
-            res.status(200).json({
-                ok: true,
-                usuarios: usuarios
-            });
+            // la funcion count me cuenta los numeros de registro que hay y me regresa un callback
+            Usuario.count({}, (err, conteo) => {
+               
+                if (err) {
+                    return res.status(500).json({
+                        ok: false,
+                        mensaje: 'Error cargando usuarios!',
+                        errors: err
+                    });
+                }
+               
+                res.status(200).json({
+                    ok: true,
+                    usuarios: usuarios,
+                    total: conteo,
+                });
+            })
+
+            
         });    
 });
 

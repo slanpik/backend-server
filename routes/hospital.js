@@ -16,7 +16,18 @@ var Hospital = require('../models/hospital');
  * ============================
  */
  app.get('/', (req, res, next) => {
-    Hospital.find({}, 'nombre img usuario')
+
+    /** @var desde es el parametro de donde viene la peticion, en caso que sea nulo lo toma como 0 de manera automatica eso sirve para generar la paginación */
+    var desde = req.query.desde || 0;
+    desde = Number(desde);
+
+    Hospital.find({})
+            // La funcion populate sirve para obtener los datos de un campo especifico de la base de datos, en nuestro caso es el campo de usuario
+            .populate('usuario', 'nombre email')
+            // esta funcion sirve para decirle a la petición que se salte los numeros 
+            .skip(desde)
+            // el limit limita los registros en este caso solo 5    
+            .limit(5)
             .exec( (err, hospitales ) => {
                 if( err ) {
                     return res.status(500).json({
@@ -26,10 +37,25 @@ var Hospital = require('../models/hospital');
                     });
                 }
 
-                res.status(200).json({
-                    ok: true,
-                    hospitales: hospitales
-                });
+
+                // la funcion count me cuenta los numeros de registro que hay y me regresa un callback
+                Hospital.count({}, (err, conteo) => {
+               
+                    if (err) {
+                        return res.status(500).json({
+                            ok: false,
+                            mensaje: 'Error cargando los hospitales!!',
+                            errors: err
+                        });
+                    }
+                
+                    res.status(200).json({
+                        ok: true,
+                        hospitales: hospitales,
+                        total: conteo,
+                    });
+                })
+
             });
  });
 

@@ -16,26 +16,49 @@ var Medico = require('../models/medico');
  *========================
  */
 app.get('/', (req, res, next) => {
+
+    /** @var desde es el parametro de donde viene la peticion, en caso que sea nulo lo toma como 0 de manera automatica eso sirve para generar la paginación */
+    var desde = req.query.desde || 0;
+    desde = Number(desde);
     
     // Busco todos los medicos
-    Medico.find({}).exec((err, medicos) => {
+    Medico.find({})
+        .populate('usuario', 'nombre email')
+        .populate('hospital')
+        // esta funcion sirve para decirle a la petición que se salte los numeros 
+        .skip(desde)
+        // el limit limita los registros en este caso solo 5    
+        .limit(5)
+        .exec((err, medicos) => {
         
-        // reviso si hubo algun error
-        if( err ) {
-            return res.status(500).json({
-                ok: false,
-                mensajes: 'Error cargando los Medicos!!',
-                error: err
-            });
-        }
+            // reviso si hubo algun error
+            if( err ) {
+                return res.status(500).json({
+                    ok: false,
+                    mensajes: 'Error cargando los Medicos!!',
+                    error: err
+                });
+            }
 
-        // si no hay error 
-        res.status(200).json({
-            ok: true,
-            medicos: medicos
+             // la funcion count me cuenta los numeros de registro que hay y me regresa un callback
+             Medico.count({}, (err, conteo) => {
+               
+                if (err) {
+                    return res.status(500).json({
+                        ok: false,
+                        mensaje: 'Error cargando los Medicos!!',
+                        errors: err
+                    });
+                }
+               
+                res.status(200).json({
+                    ok: true,
+                    medicos: medicos,
+                    total: conteo,
+                });
+            })
+
         });
-
-    });
 
 });
 
