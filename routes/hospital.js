@@ -101,6 +101,7 @@ var Hospital = require('../models/hospital');
         }
 
         hospital.nombre = body.nombre;
+        hospital.usuario =  req.usuario._id;
 
         hospital.save( (err, hospitalGuardado) => {
             

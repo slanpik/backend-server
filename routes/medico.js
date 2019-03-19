@@ -118,6 +118,7 @@ app.put('/:id', middlewareAuth.verificaToken, (req, res) => {
 
 
         medico.nombre = body.nombre;
+        medico.usuario =  req.usuario._id;
 
         // Verifico si viene el id del hospital
         if ( body._idHospital != null ) {
