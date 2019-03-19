@@ -1,9 +1,16 @@
 // rutas de los usuarios
 var express = require('express');
+
+/** @var bcrypt es el modulo necesario para encriptar contraseñas por una sola via */
 var bcrypt = require('bcryptjs');
 
+/** @var middlewareAuth es el middleware que se usa para la autenticacion del usuario  */
+var middlewareAuth = require('../middlewares/auth');
+
+/** @var app es el modulo de express */
 var app = express();
 
+/** @var Usuario es el modelo de usuarios. */
 var Usuario = require('../models/usuario');
 
 /**
@@ -31,12 +38,15 @@ app.get('/', (request, res, next) => {
         });    
 });
 
+
+
+
 /**
  * ==========================
  * Crear un nuevo usuario
  * ==========================
  */
-app.post('/', (req, res) => {
+app.post('/', middlewareAuth.verificaToken, (req, res) => {
     // inicializamos el body parser para obtener los datos
     var body = req.body;
 
@@ -63,7 +73,8 @@ app.post('/', (req, res) => {
         // si no hay error devuelvo un status 201
         res.status(201).json({
             ok: true,
-            usuario: usuarioGuardado
+            usuario: usuarioGuardado,
+            usuarioToken: req.usuario
         });
         
     });
@@ -74,7 +85,7 @@ app.post('/', (req, res) => {
  * Actualizar usuario
  * =====================
  */
-app.put('/:id', (req, res) => {
+app.put('/:id', middlewareAuth.verificaToken, (req, res) => {
     
     var id = req.params.id;
     // inicializamos el body parser para obtener los datos
@@ -132,11 +143,11 @@ app.put('/:id', (req, res) => {
  * Eliminar un usuario por id
  * =====================
  */
-app.delete('/:id', (req, ress) => {
+app.delete('/:id', middlewareAuth.verificaToken, (req, res) => {
     
     var id = req.params.id;
 
-    Usuario.findOneAndDelete(id, ( err, usuarioBorrado) => {
+    Usuario.findByIdAndRemove(id, ( err, usuarioBorrado) => {
          // si genera error devuelvo un error status 500
          if (err) {
             return res.status(500).json({

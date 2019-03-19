@@ -16,3 +16,6 @@ https://www.npmjs.com/package/mongoose-unique-validator
 # nodemon se usa para que el servidor de actualice al detectar cualquier cambio
 https://nodemon.io/
 
+# jwt se usa para generar un token en el login
+https://github.com/auth0/node-jsonwebtoken
+
