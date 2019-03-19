@@ -38,9 +38,6 @@ app.get('/', (request, res, next) => {
         });    
 });
 
-
-
-
 /**
  * ==========================
  * Crear un nuevo usuario
@@ -129,14 +126,14 @@ app.put('/:id', middlewareAuth.verificaToken, (req, res) => {
             // si no hay error devuelvo un status 201
             res.status(200).json({
                 ok: true,
-                usuario: usuarioGuardado
+                usuario: usuarioGuardado,
+                usuarioToken: req.usuario
             });
 
         });
     });
 
 });
-
 
 /**
  * =====================
@@ -157,7 +154,6 @@ app.delete('/:id', middlewareAuth.verificaToken, (req, res) => {
             });
         }
 
-
         if( !usuarioBorrado ) {
             return res.status(400).json({
                 ok:false,
@@ -171,6 +167,8 @@ app.delete('/:id', middlewareAuth.verificaToken, (req, res) => {
         res.status(200).json({
             ok: true,
             mensaje: 'Usuario Borrado',
+            usuarioBorrado: usuarioBorrado,
+            usuarioToken: req.usuario
         });
     });
 
