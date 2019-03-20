@@ -19,3 +19,8 @@ https://nodemon.io/
 # jwt se usa para generar un token en el login
 https://github.com/auth0/node-jsonwebtoken
 
+# express-fileupload se usa para subir archivos a nuestro servidor
+https://github.com/richardgirges/express-fileupload
+
+# serve-index libreria para mostrar imagenes | no se esta usando esa libreria
+https://github.com/expressjs/serve-index
