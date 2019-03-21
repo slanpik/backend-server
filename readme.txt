@@ -24,3 +24,15 @@ https://github.com/richardgirges/express-fileupload
 
 # serve-index libreria para mostrar imagenes | no se esta usando esa libreria
 https://github.com/expressjs/serve-index
+
+# lite server libreria para subir de forma rapida servidores de prueba
+https://github.com/johnpapa/lite-server
+
+
+# google client credentials
+
+api_key r_m8E_qxuQ46FODyYWx6VcpL
+client 1075315116587-90hv0abftvbvble279ddrqpu5dihfsaq.apps.googleusercontent.com
+
+# calle 99 # 11A -41
+# Constructora jmb janneth lopez
