@@ -1,4 +1,16 @@
 
+# Backend - Server
+
+Para instalar las dependencias
+```
+npm install
+```
+
+Para iniciar el servidor
+```
+npm start
+```
+
 Estas son las librerias usadas.
 
 # bcrypt.js sirve para encriptar las contraseñas en una sola via
@@ -30,9 +42,16 @@ https://github.com/johnpapa/lite-server
 
 
 # google client credentials
-
 api_key r_m8E_qxuQ46FODyYWx6VcpL
 client 1075315116587-90hv0abftvbvble279ddrqpu5dihfsaq.apps.googleusercontent.com
 
-# calle 99 # 11A -41
-# Constructora jmb janneth lopez
+# Documentación de peticiones
+https://documenter.getpostman.com/view/3720056/S17tRTdv#f68e2325-417c-4c35-b0ba-b0590280e951
+
+## Dentro hay un archivo demo para el front-end
+Existe un archivo para probar el front-end para acceder a google
+
+Para iniciar el servidor de front-end
+```
+npm run dev
+```

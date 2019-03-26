@@ -19,9 +19,9 @@ var usuarioSchema = new Schema({
     password: { type: String, required: [true, 'La contraseña es necesario'] },
     img: { type: String, required: false },
     role: { type: String, required: true, default: 'USER_ROLE', enum: rolesValidos }, // el enum es para decir la numeracion o en nuestro caso los roles validos
-
+    google: { type: Boolean, default: false },
 });
 
-usuarioSchema.plugin( uniqueValidator, { message: '{PATH} debe de ser unico'} );
+usuarioSchema.plugin( uniqueValidator, { message: '{PATH} debe de ser unico' } );
 
 module.exports = mongoose.model('Usuario', usuarioSchema);
