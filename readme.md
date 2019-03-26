@@ -40,6 +40,8 @@ https://github.com/expressjs/serve-index
 ## lite server libreria para subir de forma rapida servidores de prueba
 https://github.com/johnpapa/lite-server
 
+## Documentación util de google auth
+https://developers.google.com/identity/sign-in/web/backend-auth?refresh=1
 
 ## google client credentials
 api_key r_m8E_qxuQ46FODyYWx6VcpL
