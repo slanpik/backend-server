@@ -43,10 +43,6 @@ https://github.com/johnpapa/lite-server
 ## Documentación util de google auth
 https://developers.google.com/identity/sign-in/web/backend-auth?refresh=1
 
-## google client credentials
-api_key r_m8E_qxuQ46FODyYWx6VcpL
-client 1075315116587-90hv0abftvbvble279ddrqpu5dihfsaq.apps.googleusercontent.com
-
 ## Documentación de peticiones
 https://documenter.getpostman.com/view/3720056/S17tRTdv#f68e2325-417c-4c35-b0ba-b0590280e951
 
